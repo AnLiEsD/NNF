@@ -13,7 +13,8 @@ The <b>strength of the connexions</b> between the neurons is a strong factor in 
 As previously said, a neuron takes data as inputs and returns data on the output.
 The input data is modified by the <b>weights applied to each input</b>. The bias is also a parameter that we can use to train our model, it is commonly used to <b>offset the output</b> value of the neuron.
 
-There is how we could represent an artificial neuron: 
+There is how we could represent an artificial neuron:
+![Representation of a single Neuron](images/Neuron.svg)
 
 The neuron itself then computes this data, it first calculates the <b>dot product</b> of these numbers and then the output goes through an <b>activation function</b> to decide to fire or not the next neuron.
 
