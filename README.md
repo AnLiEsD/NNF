@@ -20,6 +20,7 @@ The neuron itself then computes this data, it first calculates the <b>dot produc
 
 There is a common representation of a multilayer neural network:
 
+![Representation of a single Neuron](images/Neural-network.svg)
 
 ## What are we going to see in this repository ?
 We will see how to <b>compute a neuron and layers of neurons</b>, the different ways we calculate outputs <b>either to another neuron</b> (hidden layers) or to the <b>output of our neural network</b>.
