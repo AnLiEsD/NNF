@@ -1,34 +1,50 @@
-# Inputs is the data coming in the neuron
-# This data can come from sensors or other neurons
-inputs = [0.2, 0.6, 0.3]
+# Libs
+# We are going to use numpy for the calculations
+# This framework is more optimised and commonly used
 
-# We need to have a batch of weights for each neuron
-# The number of weights is linked to the number of inputs
-weights = [[0.3, -0.7, 1.0],
-	   [0.8, 0.2, 0.4],
-	   [-0.1, -0.6, 0.3]]
+import numpy as np
 
-# The bias is unique to each neuron, we only have one for each
-biases = [0.5, -0.2, 3]
+# When we are working with neural network, we use large amount of data
+# Using each neuron as a single entity is time consuming
+# To solve this problem we use batches of data
+# These batches represent the inputs, weights and biases associated to each neurons
+# To use these batches we will use matrices and the properties associated
 
-# To calculate the output of our neron we need to apply the dot product
-# The dot product is applied to the inputs and weights
-# The bias is added at the end of the calculation
 
-# Init of the output list
-outputs = []
-# Each neuron
-for neuron_weights, neuron_bias in zip(weights, biases):
-	# Init the value of the neuron
-	neuron_out = 0
-	# Each parameters linked to the neuron
-	for input_n, weight in zip(inputs, neuron_weights):
-		# Dot product of the neuron
-		# Each time we calculate and add the input*weight to neuron_out
-		neuron_out += input_n*weight
-	# Bias at the end of the dot product
-	neuron_out += neuron_bias
-	#Output of the neuron in output batch
-	outputs.append(neuron_out)
+# Inputs is the batch of data coming in the neurons
+inputs = [[0.3, 0.8, 1],
+	  [1.5, 0.9, 1.2],
+	  [-0.7, 1.2, 1.6],
+	  [2.1, 1.3, -1.6],
+	  [-0.2, 0.3, 0.7]]
 
-print(outputs)
+# The batch of weights is linked to the number of neurons
+weights = [[0.67, -0.09, 1.19],
+	  [1.62, 1.47, 1.19],
+	  [0.22, 0.43, -0.6],
+	  [-0.23, -1.52, 1.55],
+	  [-1.06, 0.85, -1.12]]
+
+# Each biases is unique to a neuron
+biases = [2, 1.5, -0.7, 0.5, -1.2]
+
+
+# We now need to compute the dot product of the inputs and weights matrices
+# To do so, we will use numpy but we have to be careful with the shapes of our matrices
+# The current shapes of our matrices are layer: (5,3) and weights: (5,3)
+# We cannot compute the dot product of two matrices with these shapes
+# The second dimensions of the first matrix has to be equal to the first one of the second matrix
+
+# Example : matrix_a: (x,y) matrix_b: (a,b)
+# y has to be equal to a
+# The output of the calculation will have the dimensions (x,b)
+
+# Back to our problem
+# We can use matrix transpose, this operation inverts the 2 dimensions of the layer
+# matrix_a: (x,y) matrix_a.T: (y,x)
+
+# Knowing that we can now compute the dot product of the weights and biases
+
+output = (np.dot(inputs, np.array(weights).T)) + biases
+print(output)
+print("=Output shape", np.shape(output))
