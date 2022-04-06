@@ -27,15 +27,13 @@ class ReLU:
 # Softmax activation function
 # This is a non linear function used for classification
 # Data is normalized and the output is used as a confidence score
-E = 2.718
-# First we exponentiate the values
-# The exp function is a non linear monotomus Function
-exp_values = []
-for output in layer_outputs:
-	exp_values.append(E ** output)
+class Softmax_Activation:
 
-# Then we normalize the exponentiated values
-norm_base = sum(exp_values)
-norm_values = []
-for value in exp_values:
-	norm_values.append(value / norm_base)
+	def forward(self, inputs):
+		# The exponentiation of values can cost a lot of ressources
+		# By reducing the scale of our data the result will be smaller
+		exp_values = np.exp(inputs - np.max(inputs, axis = 1, keepdims = True))
+		# Making a probability distribution of the data
+		prob = exp_values / np.sum(exp_values, axis = 1, keepdims = True)
+
+		self.output = prob
