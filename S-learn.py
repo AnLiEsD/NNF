@@ -8,7 +8,7 @@ class Layer_fc:
 	def __init__(self, n_inputs, n_neurons):
 		self.weights = np.random.randn(n_inputs, n_neurons)
 		self.biases = np.zeros((1, n_neurons))
-		
+
 	# Forward pass of neurons, dot product of inputs.weights + biases
 	def forward(self, inputs):
 		self.output = np.dot(inputs, self.weights) + self.biases
@@ -18,7 +18,24 @@ class Layer_fc:
 # Fast way to have a non linear activation function
 # Commonly used in hidden layers
 class ReLU:
-	
+
 	def forward(self, inputs):
 		# Linear function clipped under 0
 		self.output = np.maximum(0, inputs)
+
+
+# Softmax activation function
+# This is a non linear function used for classification
+# Data is normalized and the output is used as a confidence score
+E = 2.718
+# First we exponentiate the values
+# The exp function is a non linear monotomus Function
+exp_values = []
+for output in layer_outputs:
+	exp_values.append(E ** output)
+
+# Then we normalize the exponentiated values
+norm_base = sum(exp_values)
+norm_values = []
+for value in exp_values:
+	norm_values.append(value / norm_base)
