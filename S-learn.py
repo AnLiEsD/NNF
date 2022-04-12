@@ -1,6 +1,6 @@
 # Libraries
 import numpy as np
-
+import math
 
 # Fully connected layer
 class Layer_fc:
@@ -37,3 +37,16 @@ class Softmax_Activation:
 		prob = exp_values / np.sum(exp_values, axis = 1, keepdims = True)
 
 		self.output = prob
+
+
+# Cross_entropy
+# This loss calculation is applied to a probability distribution
+# We use the output data from our neurons and the desired output
+neuron_output = [0.65, 0.15, 0.20]
+desired_output = [1, 0, 0]
+
+Cross_entropy = -(math.log(neuron_output[0]) * desired_output[0] +
+				  math.log(neuron_output[1]) * desired_output[1] +
+				  math.log(neuron_output[2]) * desired_output[2])
+
+print(Cross-entropy)
