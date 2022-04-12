@@ -1,6 +1,6 @@
 # Libraries
 import numpy as np
-import math
+
 
 # Fully connected layer
 class Layer_fc:
@@ -42,11 +42,24 @@ class Softmax_Activation:
 # Cross_entropy
 # This loss calculation is applied to a probability distribution
 # We use the output data from our neurons and the desired output
-neuron_output = [0.65, 0.15, 0.20]
-desired_output = [1, 0, 0]
+neuron_outputs = np.array[[0.8, 0.1, 0.1],
+						 [0.2, 0.7, 0.1],
+						 [0.1, 0.3, 0.6]]
 
-Cross_entropy = -(math.log(neuron_output[0]) * desired_output[0] +
-				  math.log(neuron_output[1]) * desired_output[1] +
-				  math.log(neuron_output[2]) * desired_output[2])
+# Indexes of the desired values
+targets = np.array[[1, 0, 0],
+				   [0, 1, 0],
+				   [0, 0, 1]]
 
-print(Cross-entropy)
+# No need for computation if the shape is equal to 1
+if len(targets.shape) == 1:
+	confidence = neuron_outputs[range(len(neuron_outputs)), targets]
+
+elif len(targets.shape) == 2:
+	confidence = np.sum(neuron_outputs * targets, axis=1)
+
+# Calculation of cross-entropy
+loss = -log(confidence)
+
+avg_loss = np.mean(loss)
+print(avg_loss)
