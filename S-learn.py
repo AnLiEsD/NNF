@@ -39,27 +39,37 @@ class Softmax_Activation:
 		self.output = prob
 
 
+#Common loss, this class will be improved in the future
+class Loss():
+
+	def calculate(self, output, valid):
+		#Calculation of losses
+		sample_losses = self.forward(output, valid)
+		#Mean of the losses
+		mean_loss = np.mean(sample_losses)
+		
+		return mean_loss	
+
+
 # Cross_entropy
 # This loss calculation is applied to a probability distribution
 # We use the output data from our neurons and the desired output
-neuron_outputs = np.array[[0.8, 0.1, 0.1],
-						 [0.2, 0.7, 0.1],
-						 [0.1, 0.3, 0.6]]
-
-# Indexes of the desired values
-targets = np.array[[1, 0, 0],
-				   [0, 1, 0],
-				   [0, 0, 1]]
-
-# No need for computation if the shape is equal to 1
-if len(targets.shape) == 1:
-	confidence = neuron_outputs[range(len(neuron_outputs)), targets]
-
-elif len(targets.shape) == 2:
-	confidence = np.sum(neuron_outputs * targets, axis=1)
-
-# Calculation of cross-entropy
-loss = -log(confidence)
-
-avg_loss = np.mean(loss)
-print(avg_loss)
+class Cross_entropy(Loss):
+	
+	def forward(self, prediction, valid):
+		
+		#Number of samples
+		samples = len(prediction)
+		# We clip the data to solve the issue of -log(0) that is impossible
+		#We are doing the same for the value 1 to avoid getting a negative result
+		prediction_clipped = np.clip(prediction, 1e-10, 1 - 1e-10)
+		
+		if len(valid.shape) == 1:
+			confidence = prediction_clipped[range(samples), valid]
+			
+		elif len(valid.shape) == 2:
+			confidence = np.sum(predicion_clipped * valid, axis=1)
+			
+		#Losses
+		neg_log_loss = -np.log(confidence)
+		return neg_log_loss
