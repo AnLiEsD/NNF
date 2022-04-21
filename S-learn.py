@@ -77,21 +77,12 @@ class Cross_entropy(Loss):
 
 # Accuracy of our model
 # This is another process that we will be unsing to improve our model
-outputs = np.array([[0.7, 0.2, 0.1],
-                               [0.5, 0.1, 0.4],
-                               [0.02, 0.9, 0.08]])
-                              					
-# Target values for our example
-targets = np.array([0, 1, 1])
-  
-# Calculate the index of the greatest value in each lists
-predictions = np.argmax(outputs, axis=1)
-
-# In the case of one-hot encoded values
-if len(targets.shape) == 2:
-	# We do the same as previously with the predictions
-	targets = np.argmax(targets, axis=1) 
-
-# The overall accuracy is the average
-accuracy = np.mean(predictions == targets)
-print(accuracy)
+def accuracy(ouputs, targets):
+	# Calculate the index of the greatest value in each row
+	preds = np.argmax(outputs, axis=1)
+	
+	if len(targets.shape) == 2:
+		targets = np.argmax(targets, axis=1)
+	
+	acc = np.mean(preds == targets)
+	return acc
